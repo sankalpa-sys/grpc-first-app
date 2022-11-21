@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+option java_multiple_files=true;
+option java_package="com.example";
+option java_outer_classname = "grpc_crud_demo";
+
+package com.example;
+
+service grpcService{
+  //insert
+  rpc insertStudent(CreateStudentRequest) returns(GetStudentData);
+
+  //read
+  rpc getStudent(GetStudentRequest) returns(AllStudents);
+
+  //update
+  rpc updateStudent(UpdateStudentRequest) returns(GetStudentData);
+
+  //delete
+//  rpc deleteStudent(DeleteStudentByRollNumber) returns(SuccessMessage);
+
+  rpc deleteStudent(StudentById) returns(SuccessMessage);
+
+  //readbyid
+  rpc findStudentById(StudentById) returns (GetStudentData);
+}
+
+//insert
+message CreateStudentRequest{
+  string first_name = 1;
+  string last_name = 2;
+  int32 roll_number = 3;
+  string email =4;
+  string faculty = 5;
+}
+
+//read all data
+message GetStudentRequest{}
+
+message GetStudentData{
+  string first_name = 1;
+  string last_name = 2;
+  int32 roll_number = 3;
+  string email =4;
+  string faculty = 5;
+  string id = 6;
+}
+
+message AllStudents{
+  repeated GetStudentData student =1;
+}
+
+//getById and to delete
+message StudentById{
+  string id = 1;
+}
+
+message SuccessMessage{
+  string message=1;
+}
+
+
+//update
+message UpdateStudentRequest{
+  string id =1;
+  string first_name = 2;
+  string last_name = 3;
+  string email =4;
+}
